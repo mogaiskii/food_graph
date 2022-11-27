@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "food-graph"
+version = "0.1.0"
+description = ""
+authors = ["mogaiskii <sani.mog@gmail.com>"]
+readme = "README.md"
+packages = [{include = "food_graph"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.87.0"
+uvicorn = {extras = ["standard"], version = "^0.20.0"}
+strawberry-graphql = {extras = ["fastapi"], version = "^0.142.2"}
+sqlalchemy = "^1.4.44"
+alembic = "^1.8.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
