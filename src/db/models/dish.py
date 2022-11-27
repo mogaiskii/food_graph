@@ -9,7 +9,7 @@ from .base import DBModel
 class DBDish(DBModel):
     __tablename__ = 'dishes'
 
-    name = Column(String(256), nullable=False, blank=False)
+    name = Column(String(256), nullable=False)
     description = Column(Text, nullable=True)
     url = Column(String(2048), nullable=True)
 
