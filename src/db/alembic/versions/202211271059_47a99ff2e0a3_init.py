@@ -32,8 +32,8 @@ def upgrade() -> None:
     sa.Column('created_at', sa.DateTime(), server_default=sa.text('now()'), nullable=False),
     sa.Column('updated_at', sa.DateTime(), server_default=sa.text('now()'), nullable=False),
     sa.Column('day', sa.Date(), nullable=False),
-    sa.Column('user_code', postgresql.UUID(), nullable=False),
-    sa.Column('dish_id', postgresql.UUID(), nullable=True),
+    sa.Column('user_code', postgresql.UUID(as_uuid=True), nullable=False),
+    sa.Column('dish_id', postgresql.UUID(as_uuid=True), nullable=True),
     sa.ForeignKeyConstraint(['dish_id'], ['dishes.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
@@ -43,7 +43,7 @@ def upgrade() -> None:
     sa.Column('id', postgresql.UUID(as_uuid=True), nullable=False),
     sa.Column('created_at', sa.DateTime(), server_default=sa.text('now()'), nullable=False),
     sa.Column('updated_at', sa.DateTime(), server_default=sa.text('now()'), nullable=False),
-    sa.Column('dish_id', postgresql.UUID(), nullable=True),
+    sa.Column('dish_id', postgresql.UUID(as_uuid=True), nullable=True),
     sa.Column('name', sa.String(length=256), nullable=False),
     sa.Column('amount', sa.Float(), nullable=False),
     sa.ForeignKeyConstraint(['dish_id'], ['dishes.id'], ),

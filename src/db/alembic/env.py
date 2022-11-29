@@ -9,7 +9,7 @@ from alembic import context
 # access to the values within the .ini file in use.
 from sqlalchemy.ext.asyncio import async_engine_from_config
 
-from src.db.models.base import DBBase
+from db.models.base import DBBase
 
 config = context.config
 
@@ -31,8 +31,8 @@ target_metadata = DBBase.metadata
 
 
 def get_url():
-    from src.main import settings
-    return settings.db_url
+    from main import settings
+    return settings.get_db_url()
 
 
 def run_migrations_offline() -> None:

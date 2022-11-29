@@ -1,13 +1,11 @@
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, AsyncEngine
 from sqlalchemy.orm import sessionmaker
 
-from src.settings import Settings
+from settings import Settings
 
 
 def make_connection(settings: Settings) -> AsyncEngine:
-    conn = create_async_engine(settings.db_url, echo=settings.debug, future=True)
-
-    return conn
+    return create_async_engine(settings.get_db_url(), echo=settings.debug, future=True)
 
 
 def get_sessionmaker(conn: AsyncEngine) -> sessionmaker:

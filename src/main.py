@@ -1,18 +1,7 @@
-from fastapi import FastAPI
+__all__ = ['settings', 'app']
 
-from src.db.main import make_connection, get_sessionmaker, destroy_connection
-from src.settings import Settings
+from api.graphql.base import graphql_app
+from app import app
+from settings import settings
 
-
-settings = Settings()
-
-app = FastAPI()
-
-
-db = make_connection(settings)
-sessionmaker = get_sessionmaker(db)
-
-
-@app.on_event("shutdown")
-async def close_connection():
-    destroy_connection(db)
+app.include_router(graphql_app, prefix="/graphql")

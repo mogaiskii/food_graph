@@ -9,6 +9,6 @@ from .base import DBModel
 class DBDishIngredient(DBModel):
     __tablename__ = 'dish_ingredients'
 
-    dish_id = Column(UUID, ForeignKey("dishes.id"))
+    dish_id = Column(UUID(as_uuid=True), ForeignKey("dishes.id"))
     name = Column(String(256), nullable=False)
     amount = Column(Float, nullable=False)

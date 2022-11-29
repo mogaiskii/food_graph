@@ -1,0 +1,2 @@
+class UnresolvedSchemaException(Exception):
+    pass
