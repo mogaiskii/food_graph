@@ -1,0 +1,217 @@
+{
+	"info": {
+		"_postman_id": "40bd05bf-0e76-4e9d-8cad-95ec243434a6",
+		"name": "New Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "graph",
+			"item": [
+				{
+					"name": "add dish with day",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation {\r\n    addDayDish (dayDish: {\r\n        day: \"2022-11-29\",\r\n        userCode: \"290b5177-5f78-40cc-9bf7-888416fed988\",\r\n        dish: {\r\n            name: \"my dish\"\r\n        }\r\n    }) {\r\n        day,\r\n        userCode,\r\n        dish {\r\n            id,\r\n            name\r\n        }\r\n    }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://0.0.0.0:8000/graphql",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "8000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete dish with day",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation {\r\n    addDayDish (dayDish: {\r\n        day: \"2022-11-29\",\r\n        userCode: \"290b5177-5f78-40cc-9bf7-888416fed988\",\r\n        dish: {\r\n            name: \"my dish\"\r\n        }\r\n    }) {\r\n        day,\r\n        userCode,\r\n        dish {\r\n            id,\r\n            name\r\n        }\r\n    }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://0.0.0.0:8000/graphql",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "8000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update dish",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation {\r\n    updateDish (dish: {\r\n        id: \"648f307c-9282-4a28-b834-56c0b25fd9f0\",\r\n        name: \"my dish name\",\r\n        description: \"my description\",\r\n        url: \"null\"\r\n    }) {\r\n        id,\r\n        name\r\n    }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://0.0.0.0:8000/graphql",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "8000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add dish ingredient",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation {\r\n    addDishIngredient (dishIngredient: {\r\n        name: \"ingredient\",\r\n        amount: 1.2,\r\n        dishId: \"648f307c-9282-4a28-b834-56c0b25fd9f0\"\r\n    }) {\r\n        id,\r\n        name\r\n    }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://0.0.0.0:8000/graphql",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "8000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update dish ingredient",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation {\r\n    updateDishIngredient (dishIngredient: {\r\n        id: \"9400717e-6113-4005-9b8a-67a751ef97dd\",\r\n        name: \"ingredient 123\",\r\n        amount: 1.5\r\n    }) {\r\n        id,\r\n        name,\r\n        amount\r\n    }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://0.0.0.0:8000/graphql",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "8000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete dish ingredient",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation {\r\n    updateDishIngredient (dishIngredient: {\r\n        id: \"9400717e-6113-4005-9b8a-67a751ef97dd\",\r\n        name: \"ingredient 123\",\r\n        amount: 1.5\r\n    }) {\r\n        id,\r\n        name,\r\n        amount\r\n    }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://0.0.0.0:8000/graphql",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "8000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get dishes",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\r\n    plan (dateFrom: \"2022-11-20\", dateTo: \"2022-12-20\", userCode: \"290b5177-5f78-40cc-9bf7-888416fed988\") {\r\n        day,\r\n        userCode,\r\n        dishId,\r\n        dish {\r\n            name,\r\n            description,\r\n            url,\r\n            ingredients {\r\n                name,\r\n                amount\r\n            }\r\n        }\r\n    }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://0.0.0.0:8000/graphql",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "8000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

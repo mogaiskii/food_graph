@@ -8,12 +8,13 @@ packages = [{include = "food_graph"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"
-fastapi = "^0.87.0"
+fastapi = "0.95.1"
 uvicorn = {extras = ["standard"], version = "^0.20.0"}
 strawberry-graphql = {extras = ["fastapi"], version = "^0.142.2"}
 alembic = "^1.8.1"
 sqlalchemy = {extras = ["asyncio"], version = "^1.4.44"}
 asyncpg = "^0.27.0"
+invoke = "^2.1.1"
 
 
 [tool.poetry.group.dev.dependencies]

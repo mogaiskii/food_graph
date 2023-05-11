@@ -1,0 +1,38 @@
+version: "3.7"
+
+services:
+  food-db:
+    image: postgres:14.7-alpine
+    ports:
+      - "5432:5432"
+    volumes:
+      - food-db-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: food_graph
+      POSTGRES_USER: food_graph
+      POSTGRES_PASSWORD: password
+    restart: always
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  food-app:
+    build: .
+    container_name: food-graph
+    environment:
+      DB_URL: postgresql+asyncpg://food_graph:password@food-db/food_graph
+    links:
+      - food-db
+    depends_on:
+      food-db:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+    expose:
+      - "8000"
+
+volumes:
+  food-db-data:
+    driver: local
