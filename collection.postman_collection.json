@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "40bd05bf-0e76-4e9d-8cad-95ec243434a6",
-		"name": "New Collection",
+		"name": "collection",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -12,7 +12,13 @@
 					"name": "add dish with day",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMzA1YzNlNDUtZTY3My00MzRmLTgwYzEtNjlmNzI4MGI2MWY0In0.JnSWt6VxxXMLQh96HUmbFZgBMoWWhhogDDerGBlS2-0",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "graphql",
 							"graphql": {
@@ -41,7 +47,13 @@
 					"name": "delete dish with day",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMzA1YzNlNDUtZTY3My00MzRmLTgwYzEtNjlmNzI4MGI2MWY0In0.JnSWt6VxxXMLQh96HUmbFZgBMoWWhhogDDerGBlS2-0",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "graphql",
 							"graphql": {
@@ -70,7 +82,13 @@
 					"name": "update dish",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMzA1YzNlNDUtZTY3My00MzRmLTgwYzEtNjlmNzI4MGI2MWY0In0.JnSWt6VxxXMLQh96HUmbFZgBMoWWhhogDDerGBlS2-0",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "graphql",
 							"graphql": {
@@ -99,7 +117,13 @@
 					"name": "add dish ingredient",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMzA1YzNlNDUtZTY3My00MzRmLTgwYzEtNjlmNzI4MGI2MWY0In0.JnSWt6VxxXMLQh96HUmbFZgBMoWWhhogDDerGBlS2-0",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "graphql",
 							"graphql": {
@@ -128,7 +152,13 @@
 					"name": "update dish ingredient",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMzA1YzNlNDUtZTY3My00MzRmLTgwYzEtNjlmNzI4MGI2MWY0In0.JnSWt6VxxXMLQh96HUmbFZgBMoWWhhogDDerGBlS2-0",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "graphql",
 							"graphql": {
@@ -157,7 +187,13 @@
 					"name": "delete dish ingredient",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMzA1YzNlNDUtZTY3My00MzRmLTgwYzEtNjlmNzI4MGI2MWY0In0.JnSWt6VxxXMLQh96HUmbFZgBMoWWhhogDDerGBlS2-0",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "graphql",
 							"graphql": {
@@ -184,13 +220,88 @@
 				},
 				{
 					"name": "get dishes",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMzA1YzNlNDUtZTY3My00MzRmLTgwYzEtNjlmNzI4MGI2MWY0In0.JnSWt6VxxXMLQh96HUmbFZgBMoWWhhogDDerGBlS2-0",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\r\n    plan (dateFrom: \"2022-11-20\", dateTo: \"2022-12-20\", userCode: \"290b5177-5f78-40cc-9bf7-888416fed988\") {\r\n        day,\r\n        userCode,\r\n        dishId,\r\n        dish {\r\n            name,\r\n            description,\r\n            url,\r\n            ingredients {\r\n                name,\r\n                amount\r\n            }\r\n        }\r\n    }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://0.0.0.0:8000/graphql",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "8000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create user",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "query {\r\n    plan (dateFrom: \"2022-11-20\", dateTo: \"2022-12-20\", userCode: \"290b5177-5f78-40cc-9bf7-888416fed988\") {\r\n        day,\r\n        userCode,\r\n        dishId,\r\n        dish {\r\n            name,\r\n            description,\r\n            url,\r\n            ingredients {\r\n                name,\r\n                amount\r\n            }\r\n        }\r\n    }\r\n}",
+								"query": "mutation {\r\n    createUser (user: {\r\n        username: \"username\",\r\n        password: \"password\"\r\n    }) {\r\n        username\r\n    }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://0.0.0.0:8000/graphql",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "8000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation {\r\n    login (\r\n        username: \"username\",\r\n        password: \"password\"\r\n    ) {\r\n        ... on LoginSuccess {\r\n            token\r\n        }\r\n        ... on LoginError {\r\n            message\r\n        }\r\n    }\r\n}",
 								"variables": ""
 							}
 						},

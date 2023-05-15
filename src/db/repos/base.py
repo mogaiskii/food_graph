@@ -20,6 +20,9 @@ class Repo:
 
     async def create(self, *, flush: bool = True, commit: bool = False, **item_kwargs) -> DBModel:
         item = self.build_item(**item_kwargs)
+        return await self.save(item, flush=flush, commit=commit)
+
+    async def save(self, item, *, flush: bool = True, commit: bool = False) -> DBModel:
         self.session.add(item)
         if flush:
             await self.session.flush([item])

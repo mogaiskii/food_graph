@@ -67,3 +67,28 @@ class GQUpdateDishIngredient(GQBase):
     id: uuid.UUID
     name: str
     amount: float
+
+
+@strawberry.type
+class GQUser(GQBase):
+    username: str
+
+
+@strawberry.input
+class GQCreateUser(GQBase):
+    username: str
+    password: str
+
+
+@strawberry.type
+class LoginSuccess(GQBase):
+    user: GQUser
+    token: str
+
+
+@strawberry.type
+class LoginError(GQBase):
+    message: str
+
+
+LoginResult = strawberry.union("LoginResult", (LoginSuccess, LoginError))

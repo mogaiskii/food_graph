@@ -1,9 +1,12 @@
 import uuid
 from datetime import date
+from typing import List
 
-from api.graphql.schemas import GQDishIngredient, GQDishDay
-from api.graphql.utils import map_db_to_gq
-from db.models import DBDishIngredient, DBDishDay, DBDish
+import pytest
+
+from api.graphql.schemas import GQDishIngredient, GQDishDay, GQUser
+from api.graphql.utils import map_db_to_gq, map_response
+from db.models import DBDishIngredient, DBDishDay, DBDish, DBUser
 
 
 def test_map_db_to_gq__simple():
@@ -35,3 +38,38 @@ def test_map_db_to_gq__nested():
     ingredient = ingredients[0]
 
     assert ingredient.name == db_ingredient.name
+
+
+@pytest.mark.asyncio
+async def test_map_response():
+    @map_response
+    def simple() -> GQUser:
+        return DBUser(username='abc')
+
+    @map_response(GQUser)
+    def explicit(username):
+        return DBUser(username=username)
+
+    @map_response
+    async def simple_list() -> List[GQUser]:
+        return [DBUser(username='abc')]
+
+    @map_response(GQUser)
+    def explicit_list(username):
+        return [DBUser(username=username)]
+
+    class Handler:
+        @map_response
+        async def class_member(self, username) -> list[GQUser]:
+            return [DBUser(username=username)]
+
+    simple_result = simple()
+    assert isinstance(simple_result, GQUser)
+    assert simple_result.username == 'abc'
+    assert explicit('abc').username == 'abc'
+    simple_list_result = await simple_list()
+    assert simple_list_result[0].username == 'abc'
+    assert explicit_list('abc')[0].username == 'abc'
+    handler = Handler()
+    member_result = await handler.class_member('abc')
+    assert member_result[0].username == 'abc'
