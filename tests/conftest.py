@@ -2,9 +2,17 @@ import asyncio
 import sys
 
 import pytest
+from faker import Faker
+from sqlalchemy import select
+from sqlalchemy.ext.asyncio import AsyncSession
 
-from db.models import DBBase
+from db.models import DBBase, DBUser
 from settings import settings
+
+
+@pytest.fixture(scope="session")
+def fake():
+    return Faker()
 
 
 @pytest.fixture(scope="session")
@@ -30,3 +38,21 @@ def _database_url():
 @pytest.fixture(scope="session")
 def init_database():
     return DBBase.metadata.create_all
+
+
+@pytest.fixture
+def generate_user(db_session: AsyncSession, fake):
+    async def _user(username=None, password=None) -> DBUser:
+        if username is None:
+            username = fake.user_name()
+        if password is None:
+            password = fake.password(length=15, special_chars=True, digits=True, upper_case=True, lower_case=True)
+
+        user = DBUser(username=username)
+        user.password = password
+        db_session.add(user)
+        await db_session.flush(objects=[user])
+        await db_session.commit()
+
+        return user
+    return _user

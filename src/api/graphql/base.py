@@ -21,7 +21,7 @@ from db.repos.dish_day import DishDayRepo
 from .permissions import IsAuthenticated
 from .schemas import GQDishDay, GQAddDishDay, GQUpdateDish, GQAddDishIngredient, GQUpdateDishIngredient, \
     GQDishIngredient, GQDish, LoginResult, LoginError, LoginSuccess, GQUser, GQCreateUser
-from .utils import map_db_to_gq, map_response
+from .utils import map_db_to_gq
 
 
 class SQLAlchemySession(Extension):
