@@ -9,6 +9,11 @@ class GQBase:
     pass
 
 
+# @strawberry.type
+# class GQRecipeIngredient(GQBase):
+
+
+
 @strawberry.type
 class GQDishIngredient(GQBase):
     id: uuid.UUID
@@ -92,3 +97,8 @@ class LoginError(GQBase):
 
 
 LoginResult = strawberry.union("LoginResult", (LoginSuccess, LoginError))
+
+
+@strawberry.type
+class GQAction(GQBase):
+    name: str

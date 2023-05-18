@@ -10,7 +10,7 @@ packages = [{include = "food_graph"}]
 python = "^3.10"
 fastapi = "0.95.1"
 uvicorn = {extras = ["standard"], version = "^0.20.0"}
-strawberry-graphql = {extras = ["fastapi"], version = "^0.142.2"}
+strawberry-graphql = {version = "0.177.1", extras = ["fastapi"]}
 alembic = "^1.8.1"
 sqlalchemy = {extras = ["asyncio"], version = "^1.4.44"}
 asyncpg = "^0.27.0"

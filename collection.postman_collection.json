@@ -272,7 +272,7 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "mutation {\r\n    createUser (user: {\r\n        username: \"username\",\r\n        password: \"password\"\r\n    }) {\r\n        username\r\n    }\r\n}",
+								"query": "mutation {\r\n    createUser (user: {\r\n        username: \"new_user\",\r\n        password: \"password\"\r\n    }) {\r\n        username\r\n    }\r\n}",
 								"variables": ""
 							}
 						},
@@ -302,6 +302,35 @@
 							"mode": "graphql",
 							"graphql": {
 								"query": "mutation {\r\n    login (\r\n        username: \"username\",\r\n        password: \"password\"\r\n    ) {\r\n        ... on LoginSuccess {\r\n            token\r\n        }\r\n        ... on LoginError {\r\n            message\r\n        }\r\n    }\r\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://0.0.0.0:8000/graphql",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "8000",
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create action",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation {\r\n    createAction (name: \"new action\") {\r\n        name\r\n    }\r\n}",
 								"variables": ""
 							}
 						},

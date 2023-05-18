@@ -1,26 +1,31 @@
 __all__ = ['Query', 'schema', 'graphql_app']
 
+import asyncio
 import datetime
 import uuid
-from typing import List
+from typing import List, AsyncGenerator
 
 import strawberry
 from strawberry import Schema
 from strawberry.extensions import Extension
 from strawberry.fastapi import GraphQLRouter
+from strawberry.subscriptions import GRAPHQL_TRANSPORT_WS_PROTOCOL, GRAPHQL_WS_PROTOCOL
 from strawberry.types import Info
 
 from app import SessionMaker
+from core.interactors.actions.interactor import get_updates, create_action
 from core.interactors.dishes.interactor import (
     create_day_with_dish, delete_day_dish, delete_dish_ingredient,
     add_dish_ingredient, update_dish, update_dish_ingredient,
 )
 from core.interactors.users.exceptions import UserNotFound
 from core.interactors.users.interactor import authenticate_user, create_user
+from db.models import DBDishDay
 from db.repos.dish_day import DishDayRepo
+from utils.gq_db_mapper import GQDBMapper
 from .permissions import IsAuthenticated
 from .schemas import GQDishDay, GQAddDishDay, GQUpdateDish, GQAddDishIngredient, GQUpdateDishIngredient, \
-    GQDishIngredient, GQDish, LoginResult, LoginError, LoginSuccess, GQUser, GQCreateUser
+    GQDishIngredient, GQDish, LoginResult, LoginError, LoginSuccess, GQUser, GQCreateUser, GQAction
 from .utils import map_db_to_gq
 
 
@@ -38,7 +43,8 @@ class Query:
     async def plan(
             self, info: Info, date_from: datetime.date, date_to: datetime.date, user_code: uuid.UUID
     ) -> List[GQDishDay]:
-        items = await DishDayRepo(info.context["db"]).get_by_dates(date_from, date_to, user_code)
+        mapper = GQDBMapper(info, DBDishDay)
+        items = await DishDayRepo(info.context["db"]).get_by_dates(date_from, date_to, user_code, mapper)
         return items
         # return [map_db_to_gq(item, GQDishDay) for item in items]
 
@@ -91,6 +97,35 @@ class Mutation:
 
         return LoginSuccess(user=map_db_to_gq(user, GQUser), token=token)
 
+    @strawberry.mutation
+    async def create_action(self, info: Info, name: str) -> GQAction:
+        return await create_action(info.context['db'], name)
 
-schema = Schema(Query, mutation=Mutation, extensions=[SQLAlchemySession])
-graphql_app = GraphQLRouter(schema)
+
+@strawberry.type
+class Subscription:
+    @strawberry.subscription
+    async def count(self, target: int = 100) -> AsyncGenerator[int, None]:
+        for i in range(target):
+            yield i
+            await asyncio.sleep(0.5)
+
+    # @strawberry.subscription
+    # async def live_actions(self, info: Info) -> AsyncGenerator[GQAction, None]:
+    #     min_date = datetime.datetime.now()
+    #     while True:
+    #         updates = get_updates(info.context["db"], min_date)
+    #         if updates:
+    #             now = datetime.datetime.now()
+    #             yield updates
+    #         await asyncio.sleep(1)
+
+
+schema = Schema(Query, mutation=Mutation, subscription=Subscription, extensions=[SQLAlchemySession])
+graphql_app = GraphQLRouter(
+    schema,
+    subscription_protocols=[
+        GRAPHQL_TRANSPORT_WS_PROTOCOL,
+        GRAPHQL_WS_PROTOCOL,
+    ],
+)
