@@ -105,20 +105,27 @@ class Mutation:
 @strawberry.type
 class Subscription:
     @strawberry.subscription
-    async def count(self, target: int = 100) -> AsyncGenerator[int, None]:
+    async def count(self, target: int = 100) -> int:
         for i in range(target):
             yield i
             await asyncio.sleep(0.5)
 
-    # @strawberry.subscription
-    # async def live_actions(self, info: Info) -> AsyncGenerator[GQAction, None]:
-    #     min_date = datetime.datetime.now()
-    #     while True:
-    #         updates = get_updates(info.context["db"], min_date)
-    #         if updates:
-    #             now = datetime.datetime.now()
-    #             yield updates
-    #         await asyncio.sleep(1)
+    @strawberry.subscription
+    async def live_actions(self, info: Info) -> AsyncGenerator[List[GQAction], None]:
+        min_date = datetime.datetime.now()
+        session = None
+        try:
+            session = SessionMaker()
+            while True:
+                print(min_date)
+                updates = await get_updates(session, min_date)  # TODO: why did the context[db] disappeared?
+                if updates:
+                    min_date = datetime.datetime.now()
+                    yield updates
+                await asyncio.sleep(1)
+        finally:
+            if session:
+                await session.close()
 
 
 schema = Schema(Query, mutation=Mutation, subscription=Subscription, extensions=[SQLAlchemySession])
