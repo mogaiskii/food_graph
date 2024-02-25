@@ -3,11 +3,13 @@ __all__ = ['settings', 'app']
 from fastapi import WebSocket
 
 from api.graphql.base import graphql_app
+from api.rest.router import rest_app
 from app import app
 from settings import settings
 
 
 app.include_router(graphql_app, prefix="/graphql")
+app.include_router(rest_app, prefix="/rest")
 
 
 @app.websocket("/ws")

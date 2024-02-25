@@ -3,7 +3,6 @@ import sys
 
 import pytest
 from faker import Faker
-from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from db.models import DBBase, DBUser
