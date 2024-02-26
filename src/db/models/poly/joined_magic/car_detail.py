@@ -21,6 +21,7 @@ class DBCarDetail(DBModel):
 class DBCarWheel(DBCarDetail):
     __tablename__ = 'car_wheels'
     __table_args__ = {"schema": "joint_magic"}
+    id = Column(UUID(as_uuid=True), ForeignKey("joint_magic.car_details.id"), nullable=True)
     wheel_size = Column(Integer, nullable=True)  # only wheel
     __mapper_args__ = {
         "polymorphic_identity": "car_wheels",
@@ -30,6 +31,7 @@ class DBCarWheel(DBCarDetail):
 class DBCarDoor(DBCarDetail):
     __tablename__ = 'car_doors'
     __table_args__ = {"schema": "joint_magic"}
+    id = Column(UUID(as_uuid=True), ForeignKey("joint_magic.car_details.id"), nullable=True)
     door_type = Column(String(256), nullable=True)  # only door
     __mapper_args__ = {
         "polymorphic_identity": "car_doors",

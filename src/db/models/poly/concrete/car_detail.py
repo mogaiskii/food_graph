@@ -1,6 +1,7 @@
 from sqlalchemy import Column, String, ForeignKey, Integer
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.ext.declarative import AbstractConcreteBase
+from sqlalchemy.orm import declared_attr
 
 from db.models import DBModel, DBBase
 
@@ -10,7 +11,10 @@ class DBCarDetail(AbstractConcreteBase, DBModel):
 
     name = Column(String(256), nullable=False)
     type = Column(String(256), nullable=False)  # wheel, door
-    car_id = Column(UUID(as_uuid=True), ForeignKey("concrete.cars.id"), nullable=True)
+    # car_id = Column(UUID(as_uuid=True), ForeignKey("concrete.cars.id"), nullable=True)
+    @declared_attr
+    def car_id(cls):
+        return Column(UUID(as_uuid=True), ForeignKey("concrete.cars.id"), nullable=True)
 
 
 class DBCarWheel(DBCarDetail):
