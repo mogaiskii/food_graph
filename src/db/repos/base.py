@@ -50,7 +50,10 @@ class Repo:
             raise RepoManyForOne
         return items[0]
 
-    async def fetch_many(self, statement: Select) -> List[DBModel]:
+    async def fetch_many(self, statement: Select, mapper=None) -> List[DBModel]:
+        if mapper:
+            statement = mapper.patch_statement(statement)
+
         result = await self.session.execute(statement)
         items = result.unique().scalars().all()
         return items
@@ -58,3 +61,6 @@ class Repo:
     async def get_by_id(self, id: uuid.UUID):
         stmt = self.query.where(self.__model__.id == id)
         return await self.fetch_one(stmt)
+
+    async def get_all(self, mapper=None):
+        return await self.fetch_many(self.query, mapper=mapper)

@@ -14,6 +14,7 @@ class DBCarDetail(DBModel):
     __mapper_args__ = {
         "polymorphic_on": type,
         "polymorphic_identity": "car_details",
+        "with_polymorphic": "*",
     }
 
 

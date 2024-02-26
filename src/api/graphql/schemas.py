@@ -102,3 +102,33 @@ LoginResult = strawberry.union("LoginResult", (LoginSuccess, LoginError))
 @strawberry.type
 class GQAction(GQBase):
     name: str
+
+
+@strawberry.interface
+class CarDetail(GQBase):
+    name: str
+    type: str
+
+
+@strawberry.type
+class CarWheel(CarDetail):
+    wheel_size: int
+
+    @classmethod
+    def is_type_of(cls, *args, **kwargs):
+        return 'Wheel' in args[0].__class__.__name__
+
+
+@strawberry.type
+class CarDoor(CarDetail):
+    door_type: str
+
+    @classmethod
+    def is_type_of(cls, *args, **kwargs):
+        return 'Door' in args[0].__class__.__name__
+
+
+@strawberry.type
+class Car(GQBase):
+    name: str
+    details: list[CarDetail]
